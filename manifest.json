@@ -1,0 +1,9 @@
+{
+  "id": "authorize",
+  "name": "Authorize",
+  "version": "1.0.0",
+  "description": "Adds authorization mechanisms to give the right accesses to protect your API",
+  "dependencies": {
+    "identify": "*"
+  }
+}
