@@ -5,31 +5,24 @@ const inputsDeclaration = {}
 
 // constant with the edit input declaration
 const editInputDeclaration = JSON.parse(JSON.stringify(inputsDeclaration))
-editInputDeclaration._id = { required: true }
+editInputDeclaration.id = { required: true }
 
 module.exports = [{
-  name: 'authorize.createRole',
+  name: 'entrust.createRole',
   description: 'Create a new Role',
 
   inputs: inputsDeclaration,
 
   run(api, action, next) {
-    // create a new model instance
-    var newModel = new(api.models.get('role'))(action.params)
-
-    // save it
-    newModel.save()
-      .catch(error => { next(error) })
+    api.models.get('role')
+      .create(action.params)
       .then(model => {
-        // append the new model on the response object
-        action.response.role = newModel
-
-        // finish the action execution
+        action.response.role = model
         next()
       })
   }
 }, {
-  name: 'authorize.getRoles',
+  name: 'entrust.getRoles',
   description: 'Get all Roles',
 
   run(api, action, next) {
@@ -42,28 +35,24 @@ module.exports = [{
       })
   }
 }, {
-  name: 'authorize.getRole',
+  name: 'entrust.getRole',
   description: 'Get a Role',
 
   inputs: {
-    _id: { required: true }
+    id: { required: true }
   },
 
   run(api, action, next) {
-    // search for the request post on the DB
     api.models.get('role')
-      .findById(action.params._id)
+      .findOne({ id: action.params.id })
       .catch(error => { next(error) })
       .then(resource => {
-        // append the model to the response object
         action.response.role = resource
-
-        // finish the action execution
         next()
       })
   }
 }, {
-  name: 'authorize.editRole',
+  name: 'entrust.editRole',
   description: 'Edit a Role',
 
   inputs: editInputDeclaration,
@@ -71,28 +60,25 @@ module.exports = [{
   run(api, action, next) {
     // search for the Role and update it
     api.models.get('role')
-      .findByIdAndUpdate(action.params._id, action.params, { upsert: true, new: true })
+      .update({ id: action.params.id }, action.params)
       .catch(error => { next(error) })
       .then(model => {
-        // append the updated model to the response object
         action.response.role = model
-
-        // finish the action execution
         next()
       })
   }
 }, {
-  name: 'authorize.removeRole',
+  name: 'entrust.removeRole',
   description: 'Remove a Role',
 
   inputs: {
-    _id: { required: true }
+    id: { required: true }
   },
 
   run(api, action, next) {
     // search and remove the model
     api.models.get('role')
-      .findByIdAndRemove(action.params._id)
+      .destroy({ id : action.params.id })
       .catch(error => { next(error) })
       .then(() => { next() })
   }

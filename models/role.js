@@ -1,14 +1,19 @@
-exports.default = (api, mongoose) => {
-  // get Mongoose Schema type
-  const Schema = mongoose.Schema
+'use strict'
 
-  // create a new Schema
-  const newSchema = new Schema({
-    name: String,
-    slug: String,
-    permissions: { type: Schema.Types.Mixed, default: [] }
-  }, { timestamps: true })
-
-  // return the created schema
-  return newSchema
+exports.default = {
+  attributes: {
+    name: {
+      type: 'string',
+      required: true
+    },
+    slug: {
+      type: 'string',
+      unique: true,
+      required: true
+    },
+    permissions: {
+      type: 'array',
+      default: []
+    }
+  }
 }

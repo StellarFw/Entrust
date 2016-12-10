@@ -1,7 +1,7 @@
 'use strict'
 
 module.exports = [{
-  name: 'authorize.promoteUser',
+  name: 'entrust.promoteUser',
   description: `Promote the user to a given role`,
 
   inputs: {
@@ -24,16 +24,17 @@ module.exports = [{
         if (!role) { return next(`The given role does not exists!`) }
 
         // update the user entry with the new role
-        api.actions.call('auth.updateUser', { user: {
-          _id: action.params.user,
-          role: role._id
-        } })
+        api.actions.call('auth.updateUser', {
+          user: {
+            id: action.params.user,
+            role: role.id
+          }
+        })
           .catch(error => { next(error) })
           // append the updated user to the action response and finish the
           // execution
           .then(({ user }) => {
             action.response.user = user
-
             next()
           })
       })

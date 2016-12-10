@@ -5,16 +5,22 @@ module.export = {
   description: `Add the role field to the user model`,
 
   run (api, params, next) {
-    // get the mongoose Schema
-    const Schema = params.mongoose.Schema
+    // get the user model
+    const User = params.model
 
     // add two new fields to the user model
     //  - role: user role
     //  - permissions: special user permissions who are merged with the role
     //    ones
-    params.schema.add({
-      role: { type: Schema.Types.ObjectId, ref: 'role' },
-      permissions: { type: Schema.Types.Mixed, default: [] }
+    Object.defineProperties(User.attributes, {
+      role: {
+        model: 'role'
+      },
+
+      permissions: {
+        type: 'array',
+        default: []
+      }
     })
 
     // finish the event execution
