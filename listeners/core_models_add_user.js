@@ -1,6 +1,6 @@
 'use strict'
 
-module.export = {
+exports.default = {
   event: 'core.models.add.user',
   description: `Add the role field to the user model`,
 
@@ -12,7 +12,7 @@ module.export = {
     //  - role: user role
     //  - permissions: special user permissions who are merged with the role
     //    ones
-    Object.defineProperties(User.attributes, {
+    User.attributes = Object.assign(User.attributes, {
       role: {
         model: 'role'
       },
