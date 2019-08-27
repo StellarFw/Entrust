@@ -1,7 +1,7 @@
 {
   "id": "authorize",
   "name": "Authorize",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Adds authorization (roles and permissions) features to protect your API",
   "dependencies": {
     "identify": "*"
