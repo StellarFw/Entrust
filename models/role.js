@@ -7,7 +7,7 @@ exports.default = {
      */
     name: {
       type: "string",
-      required: true
+      required: true,
     },
 
     /**
@@ -17,8 +17,10 @@ exports.default = {
      */
     slug: {
       type: "string",
-      unique: true,
-      required: true
+      required: true,
+      autoMigrations: {
+        unique: true,
+      },
     },
 
     /**
@@ -28,8 +30,8 @@ exports.default = {
      * to create a base set of permissions for a group of users.
      */
     permissions: {
-      type: "array",
-      defaultsTo: []
+      type: "json",
+      defaultsTo: [],
     },
 
     /**
@@ -37,7 +39,7 @@ exports.default = {
      */
     meta: {
       type: "json",
-      defaultsTo: {}
-    }
-  }
+      defaultsTo: {},
+    },
+  },
 };

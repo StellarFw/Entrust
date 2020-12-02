@@ -18,7 +18,7 @@ exports.default = {
       },
 
       permissions: {
-        type: 'array',
+        type: 'json',
         defaultsTo: []
       }
     })
