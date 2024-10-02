@@ -1,6 +1,6 @@
 "use strict";
 
-exports.default = {
+export default {
   attributes: {
     /**
      * Human readable name for the role.
