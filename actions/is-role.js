@@ -1,4 +1,4 @@
-exports.default = {
+export default {
   name: "entrust.isRole",
   description: "Check if the given user has the given role",
 

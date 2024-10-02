@@ -1,4 +1,4 @@
-exports.needRole = {
+export const needRole = {
   name: "entrust.needRole",
   description: "The user needs to have a role that match with the requirement",
 
@@ -8,10 +8,7 @@ exports.needRole = {
     // only apply the middleware when the roles are set on the meta property.
     // Otherwise the operation is allowed but print an alert to inform about
     // the missing roles specification.
-    if (
-      !actionDef.hasOwnProperty("meta") ||
-      !actionDef.meta.hasOwnProperty("roles")
-    ) {
+    if (!actionDef.hasOwnProperty("meta") || !actionDef.meta.hasOwnProperty("roles")) {
       return next();
     }
 
@@ -19,7 +16,7 @@ exports.needRole = {
 
     // try to get the logged user
     const { user } = await api.actions.call("auth.checkSession", {
-      token: action.params.token
+      token: action.params.token,
     });
     if (!user) {
       return next(api.config.entrust.errors.noUserLogged);
@@ -30,5 +27,5 @@ exports.needRole = {
     }
 
     return next();
-  }
+  },
 };

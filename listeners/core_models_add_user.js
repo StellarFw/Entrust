@@ -1,12 +1,12 @@
-'use strict'
+"use strict";
 
-exports.default = {
-  event: 'core.models.add.user',
+export default {
+  event: "core.models.add.user",
   description: `Add the role field to the user model`,
 
-  run (api, params, next) {
+  run(api, params, next) {
     // get the user model
-    const User = params.model
+    const User = params.model;
 
     // add two new fields to the user model
     //  - role: user role
@@ -14,16 +14,16 @@ exports.default = {
     //    ones
     User.attributes = Object.assign(User.attributes, {
       role: {
-        model: 'role'
+        model: "role",
       },
 
       permissions: {
-        type: 'json',
-        defaultsTo: []
-      }
-    })
+        type: "json",
+        defaultsTo: [],
+      },
+    });
 
     // finish the event execution
-    next()
-  }
-}
+    next();
+  },
+};
